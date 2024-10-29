@@ -1,0 +1,90 @@
+<!DOCTYPE html> 
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Aluno</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+        button {
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .delete-btn {
+            background-color: #f44336;
+        }
+        .delete-btn:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Detalhes do Aluno</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Turma</th>
+                <th>Data de Nascimento</th>
+                <th>Nota S1</th>
+                <th>Nota S2</th>
+                <th>Média Final</th>
+                <th>Editar</th>
+                <th>Excluir</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ aluno.id }}</td>
+                <td>{{ aluno.nome }}</td>
+                <td>{{ aluno.turma }}</td>
+                <td>{{ aluno.dataNasc.strftime('%d/%m/%Y') }}</td>
+                <td>{{ aluno.nota_S1 }}</td>
+                <td>{{ aluno.nota_S2 }}</td>
+                <td>{{ aluno.media_F }}</td>
+                <td>
+                    <a href="{{ url_for('alunos.editar_aluno_page', id_aluno=aluno.id) }}">
+                        <button>Editar</button>
+                    </a>
+                </td>
+                <td>
+                <form id="delete-form" action="{{ url_for('alunos.excluir_aluno', id_aluno=aluno.id) }}" method="POST">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit">Excluir Aluno</button>
+                </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

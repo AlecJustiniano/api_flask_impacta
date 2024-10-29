@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Alunos</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        button {
+            margin-left: 20px;
+            margin-top: 20px;
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Lista de Alunos</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Turma</th>
+                <th>Data de Nascimento</th>
+                <th>Nota S1</th>
+                <th>Nota S2</th>
+                <th>Detalhes</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for aluno in alunos %}
+            <tr>
+                <td>{{ aluno.nome }}</td>
+                <td>{{ aluno.turma }}</td>
+                <td>{{ aluno.dataNasc.strftime('%d/%m/%Y') }}</td>
+                <td>{{ aluno.nota_S1 }}</td>
+                <td>{{ aluno.nota_S2 }}</td>
+                <td>
+                    <a href="{{ url_for('alunos.get_alunoPorId', id_aluno=aluno.id) }}">
+                        <button>Detalhes</button>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div>
+        <a href="{{ url_for('alunos.adicionar_aluno_page',) }}">
+            <button>Adicionar Aluno</button>
+        </a>
+    </div>
+</body>
+</html>

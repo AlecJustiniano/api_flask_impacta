@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista do Professor</title>
+    <style>
+        table {
+            margin-right: 50px;
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        div{
+            margin-top: 20px;
+        }
+        button{
+            margin-left: 20px;
+            align-items: center;
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: color(black);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Lista do Professor</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Matéria</th>
+                <th>Idade</th>
+                <th>Observação</th>
+                <th>Editar</th>
+                <th>Excluir</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ professor.id }}</td>
+                <td>{{ professor.nome }}</td>
+                <td>{{ professor.materia }}</td>
+                <td>{{ professor.idade }}</td>
+                <td>{{ professor.observacao }}</td>
+                <td>
+                    <a href="{{ url_for('professores.editar_prof_page', id_prof=professor.id) }}">
+                        <button>Editar</button>
+                    </a>
+                </td>
+                <td>
+                <form id="delete-form" action="{{ url_for('professores.delete_professor', id_prof=professor.id) }}" method="POST">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit">Excluir Professor</button>
+                </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div>
+        <a href="{{ url_for('professores.get_professores',) }}">
+        <button>Retornar à lista geral</button>
+        </a>
+    </div>
+</body>
+</html>

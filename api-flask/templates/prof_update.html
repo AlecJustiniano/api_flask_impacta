@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atualizar Professor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        form {
+            width: 300px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+        label, input {
+            display: block;
+            margin-bottom: 10px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"], input[type="number"], input[type="date"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Atualizar Informações</h1>
+    
+    <form action="{{ url_for('professores.update_professor', id_prof=prof['id']) }}" method="POST">
+      <input type="hidden" name="_method" value="PUT">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+
+        <label for="materia">Matéria:</label>
+        <input type="text" id="materia" name="materia" required>
+        
+        <label for="Idade">Idade:</label>
+        <input type="number" id="idade" name="idade" required>
+        
+        <label for="observacao">Observação:</label>
+        <input type="text" step="0.01" id="observacao" name="observacao" required>
+        
+        <input type="submit" value="Atualizar Professor">
+    </form>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Professores</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        div{
+            margin-top: 20px;
+        }
+        button{
+            margin-left: 20px;
+            align-items: center;
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: color(black);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Lista de Professores</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Matéria</th>
+                <th>Idade</th>
+                <th>Observação</th>
+                <th>Detalhes</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for prof in profs %}
+            <tr>
+                <td>{{ prof.nome }}</td>
+                <td>{{ prof.materia }}</td>
+                <td>{{ prof.idade }}</td>
+                <td>{{ prof.observacao }}</td>
+                <td>
+                    <a href="{{ url_for('professores.get_professorPorId', id_prof=prof.id) }}">
+                        <button>Detalhes</button>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div>
+        <a href="{{ url_for('professores.adicionar_prof_page',) }}">
+        <button>Adicionar Professor</button>
+        </a>
+    </div>
+</body>
+</html>
