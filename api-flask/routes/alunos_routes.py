@@ -52,13 +52,11 @@ def update_aluno(aluno_id):
         dataN = request.form["dataNasc"]
         nota_S1 = request.form["nota_S1"]
         nota_S2 = request.form["nota_S2"]
-        media_F = request.form["media_F"]
         aluno['nome'] = nome
         aluno["turma"] = turma
         aluno["dataNasc"] = dataN
         aluno["nota_S1"] = nota_S1
         aluno["nota_S2"] = nota_S2
-        aluno["media_F"] = media_F
         atualizar_aluno(aluno_id, aluno)
         return redirect(url_for('alunos.get_alunos', id_aluno=aluno_id))
     except AlunoNaoEncontrado:

@@ -39,33 +39,37 @@
     <table>
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Descrição</th>
                 <th>Professor</th>
                 <th>Ativo</th>
-                <th>Detalhes</th>
+                <th>Editar</th>
+                <th>Excluir</th>
             </tr>
         </thead>
         <tbody>
-            {% for turma in turmas %}
             <tr>
+                <td>{{ turma.id }}</td>
                 <td>{{ turma.descricao }}</td>
                 <td>{{ turma.professor }}</td>
                 <td>{{ turma.ativo }}</td>
                 <td>
-                    <a href="{{ url_for('turmas.get_turmas_por_id', id_turma=turma.id) }}">
-                        <button>Detalhes</button>
+                    <a href="{{ url_for('turmas.editar_turma_page', id_turma=turma.id) }}">
+                        <button>Editar</button>
                     </a>
                 </td>
+                <td>
+                        <form id="delete-form" action="{{ url_for('turmas.excluir_turma', turma_id=turma.id) }}" method="POST">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit">Excluir Turma</button>
+                </form>
+                </td>
             </tr>
-            {% endfor %}
         </tbody>
     </table>
     <div>
-        <a href="{{ url_for('turmas.adicionar_turma_page',) }}">
-        <button>Adicionar Turma</button>
-        </a>
-        <a href="{{ url_for('/.pagina_inicial',) }}">
-        <button>Voltar para Página Incial</button>
+        <a href="{{ url_for('turmas.get_turmas',) }}">
+        <button>Retornar à lista geral</button>
         </a>
     </div>
 </body>

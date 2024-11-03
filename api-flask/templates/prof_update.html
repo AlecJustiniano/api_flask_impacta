@@ -41,6 +41,16 @@
         input[type="submit"]:hover {
             background-color: #45a049;
         }
+        button{
+            margin-top: 20px;
+            margin-left: 630px;
+            align-items: center;
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: color(black);
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -63,6 +73,10 @@
         
         <input type="submit" value="Atualizar Professor">
     </form>
-
+    <div>
+        <a href="{{ url_for('professores.get_professorPorId', id_prof=prof.id) }}">
+        <button>Retornar à Detalhes</button>
+        </a>
+    </div>
 </body>
 </html>

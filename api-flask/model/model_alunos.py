@@ -9,17 +9,17 @@ class Aluno(db.Model):
     turma_id = db.Column(db.Integer, db.ForeignKey('turmas.id', ondelete="SET NULL"), nullable=True)
     turma = db.relationship('Turma', backref='alunos')
     dataNasc = db.Column(db.Date)
-    nota_S1 = db.Column(db.Integer)
-    nota_S2 = db.Column(db.Integer)
-    media_F = db.Column(db.Integer)
+    nota_S1 = db.Column(db.Float)
+    nota_S2 = db.Column(db.Float)
+    media_F = db.Column(db.Float)
 
-    def __init__(self, nome, turma, dataNasc, nota_S1, nota_S2, media_F):
+    def __init__(self, nome, turma, dataNasc, nota_S1, nota_S2):
         self.nome = nome
         self.turma = turma
         self.dataNasc = dataNasc
         self.nota_S1 = nota_S1
         self.nota_S2 = nota_S2
-        self.media_F = media_F
+        self.media_F = self.calcula_media()  # Calcula a média automaticamente
 
     def to_dict(self):
         return {
@@ -31,6 +31,10 @@ class Aluno(db.Model):
             "nota_S2": self.nota_S2,
             "media_F": self.media_F,
         }
+
+    def calcula_media(self):
+        return (float(self.nota_S1) + float(self.nota_S2)) / 2
+
 
 
 class AlunoNaoEncontrado(Exception):
@@ -50,21 +54,18 @@ def listar_alunos():
 
 
 def adiciona_aluno(aluno_data):
-    # Busca a turma pelo ID enviado no JSON
     turma_id = aluno_data.get('turma')
     turma = Turma.query.get(turma_id)
 
     if not turma:
         raise ValueError(f'Turma com id {turma_id} não encontrada')
 
-    # Cria o novo aluno com a instância da turma associada
     novo_aluno = Aluno(
         nome=aluno_data['nome'],
-        turma=turma,  # Atribui a instância de Turma, não o ID
-        dataNasc=datetime.strptime(aluno_data['dataNasc'], '%Y-%m-%d'),  # Corrige o formato da data
+        turma=turma,
+        dataNasc=datetime.strptime(aluno_data['dataNasc'], '%Y-%m-%d'),
         nota_S1=aluno_data['nota_S1'],
-        nota_S2=aluno_data['nota_S2'],
-        media_F=aluno_data['media_F']
+        nota_S2=aluno_data['nota_S2']
     )
 
     # Adiciona e comita no banco de dados
@@ -84,6 +85,7 @@ def atualizar_aluno(id_aluno, novos_dados):
     aluno = Aluno.query.get(id_aluno)
     if not aluno:
         raise AlunoNaoEncontrado
+
     turma_id = novos_dados.get('turma')
     turma = Turma.query.get(turma_id)
 
@@ -96,5 +98,8 @@ def atualizar_aluno(id_aluno, novos_dados):
     aluno.dataNasc = data_formatada
     aluno.nota_S1 = novos_dados["nota_S1"]
     aluno.nota_S2 = novos_dados["nota_S2"]
-    aluno.media_F = novos_dados["media_F"]
+
+    # Recalcula a média automaticamente
+    aluno.media_F = aluno.calcula_media()
+    
     db.session.commit()

@@ -42,6 +42,15 @@
         .delete-btn:hover {
             background-color: #d32f2f;
         }
+        button{
+            margin-top: 20px;
+            align-items: center;
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: color(black);
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -85,6 +94,10 @@
             </tr>
         </tbody>
     </table>
-
+    <div>
+        <a href="{{ url_for('alunos.get_alunos', id_aluno=aluno.id) }}">
+            <button>Retornar à Lista Alunos</button>
+        </a>
+    </div>
 </body>
 </html>

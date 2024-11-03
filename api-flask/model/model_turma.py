@@ -40,17 +40,14 @@ def turma_por_id(id_turma):
 
 
 def adicionar_turma(turma_data):
-    professor_id = turma_data.get('professor')
-    prof = Professor.query.get(professor_id)
-
-    if not prof:
+    professor_id = turma_data.get('prof_id')  # Aqui deve usar 'prof_id' do formulário
+    professor = Professor.query.get(professor_id)
+    if not professor:
         raise ValueError(f'Professor com id {professor_id} não encontrado')
-
-    # Cria a nova turma com a instância do professor associada
     nova_turma = Turma(
         descricao=turma_data['descricao'],
-        professor=prof,
-        ativo=turma_data["ativo"]  # Atribui a instância de Professor, não o ID
+        professor=professor,
+        ativo=turma_data['ativo']
     )
     db.session.add(nova_turma)
     db.session.commit()
@@ -62,11 +59,15 @@ def lista_turmas():
 
 
 def atualiza_tudo(id_turma, novos_dados):
+    professor_id = novos_dados["professor"]  # Aqui deve usar 'prof_id' do formulário
+    professor = Professor.query.get(professor_id)
+    if not professor:
+        raise ValueError(f'Professor com id {professor_id} não encontrado')
     turma = Turma.query.get(id_turma)
     if not turma:
         raise DadoNaoEncontrado
     turma.descricao = novos_dados["descricao"]
-    turma.professor = novos_dados["professor"]
+    turma.professor = professor
     turma.ativo = novos_dados["ativo"]
     db.session.commit()
 
