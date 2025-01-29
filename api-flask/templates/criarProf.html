@@ -3,43 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adicionar Aluno</title>
+    <title>Adicionar Professor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
-        }
-        form {
-            width: 300px;
-            margin: 0 auto;
+            font-family: 'Poppins', sans-serif;
+            background-color: #e3f2fd;
+            margin: 0;
             padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            background-color: #f9f9f9;
         }
-        label, input {
-            display: block;
-            margin-bottom: 10px;
+
+        h1 {
+            text-align: center;
+            color: #1976d2;
+            margin-bottom: 30px;
         }
-        label {
-            font-weight: bold;
-        }
-        input[type="text"], input[type="number"], input[type="date"] {
+
+        form {
             width: 100%;
-            padding: 8px;
+            max-width: 400px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"] {
+            width: 100%;
+            padding: 12px;
             margin-bottom: 15px;
             border: 1px solid #ccc;
-            border-radius: 5px;
+            border-radius: 8px;
+            font-size: 16px;
         }
+
         input[type="submit"] {
-            background-color: #4CAF50;
+            background-color: #1976d2;
             color: white;
-            padding: 10px 15px;
+            padding: 12px;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
         }
+
         input[type="submit"]:hover {
-            background-color: #45a049;
+            background-color: #1565c0;
+        }
+        div {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        button {
+            margin-left: 20px;
+            padding: 10px 20px;
+            background-color: #1976d2;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.2s;
+        }
+        button:hover {
+            background-color: #1565c0;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 600px) {
+            form {
+                padding: 20px;
+            }
         }
     </style>
 </head>
@@ -62,6 +107,10 @@
         
         <input type="submit" value="Adicionar Professor">
     </form>
-
+    <div>
+        <a href="{{ url_for('professores.get_professores',) }}">
+            <button>Retornar à lista geral</button>
+        </a>
+    </div>
 </body>
 </html>

@@ -1,40 +1,73 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalhes do Aluno</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
+        body {
+            background-color: #e3f2fd;
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #1976d2;
+            text-align: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
         }
         table, th, td {
-            border: 1px solid black;
+            border: 1px solid #ddd;
         }
         th, td {
-            padding: 10px;
+            padding: 15px;
             text-align: left;
         }
         th {
-            background-color: #f2f2f2;
+            background-color: #f7fafc;
+            color: #333;
         }
-        tr:nth-child(even) {
+        tbody tr:nth-child(even) {
             background-color: #f9f9f9;
         }
-        tr:hover {
-            background-color: #ddd;
+        tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+        div {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
         }
         button {
-            padding: 5px 10px;
-            background-color: #4CAF50;
+            margin-left: 20px;
+            padding: 10px 20px;
+            background-color: #1976d2;
             color: white;
             border: none;
             cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.2s;
         }
         button:hover {
-            background-color: #45a049;
+            background-color: #1565c0;
+            transform: scale(1.05);
         }
         .delete-btn {
             background-color: #f44336;
@@ -42,62 +75,68 @@
         .delete-btn:hover {
             background-color: #d32f2f;
         }
-        button{
-            margin-top: 20px;
-            align-items: center;
-            padding: 5px 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: color(black);
-            cursor: pointer;
+        @media (max-width: 600px) {
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            button {
+                width: 100%;
+                margin: 10px 0;
+            }
         }
     </style>
 </head>
 <body>
 
-    <h1>Detalhes do Aluno</h1>
+    <div class="container">
+        <h1>Detalhes do Aluno</h1>
 
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Turma</th>
-                <th>Data de Nascimento</th>
-                <th>Nota S1</th>
-                <th>Nota S2</th>
-                <th>Média Final</th>
-                <th>Editar</th>
-                <th>Excluir</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>{{ aluno.id }}</td>
-                <td>{{ aluno.nome }}</td>
-                <td>{{ aluno.turma }}</td>
-                <td>{{ aluno.dataNasc.strftime('%d/%m/%Y') }}</td>
-                <td>{{ aluno.nota_S1 }}</td>
-                <td>{{ aluno.nota_S2 }}</td>
-                <td>{{ aluno.media_F }}</td>
-                <td>
-                    <a href="{{ url_for('alunos.editar_aluno_page', id_aluno=aluno.id) }}">
-                        <button>Editar</button>
-                    </a>
-                </td>
-                <td>
-                <form id="delete-form" action="{{ url_for('alunos.excluir_aluno', id_aluno=aluno.id) }}" method="POST">
-                    <input type="hidden" name="_method" value="DELETE">
-                    <button type="submit">Excluir Aluno</button>
-                </form>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <div>
-        <a href="{{ url_for('alunos.get_alunos', id_aluno=aluno.id) }}">
-            <button>Retornar à Lista Alunos</button>
-        </a>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Turma</th>
+                    <th>Data de Nascimento</th>
+                    <th>Nota S1</th>
+                    <th>Nota S2</th>
+                    <th>Média Final</th>
+                    <th>Editar</th>
+                    <th>Excluir</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ aluno.id }}</td>
+                    <td>{{ aluno.nome }}</td>
+                    <td>{{ aluno.turma }}</td>
+                    <td>{{ aluno.dataNasc.strftime('%d/%m/%Y') }}</td>
+                    <td>{{ aluno.nota_S1 }}</td>
+                    <td>{{ aluno.nota_S2 }}</td>
+                    <td>{{ aluno.media_F }}</td>
+                    <td>
+                        <a href="{{ url_for('alunos.editar_aluno_page', id_aluno=aluno.id) }}">
+                            <button>Editar</button>
+                        </a>
+                    </td>
+                    <td>
+                        <form id="delete-form" action="{{ url_for('alunos.excluir_aluno', id_aluno=aluno.id) }}" method="POST">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="delete-btn">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div>
+            <a href="{{ url_for('alunos.get_alunos', id_aluno=aluno.id) }}">
+                <button>Retornar à Lista de Alunos</button>
+            </a>
+        </div>
     </div>
+
 </body>
 </html>

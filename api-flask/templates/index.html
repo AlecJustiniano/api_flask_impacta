@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Inicial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         body {
             display: flex;
@@ -12,28 +13,42 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
-            background-color: #f0f0f0;
-            font-family: Arial, sans-serif;
+            background-color: #e3f2fd;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
         }
         h1 {
             margin-bottom: 50px;
+            color: #333;
         }
         button {
             margin: 10px;
             padding: 15px 30px;
-            background-color: #4CAF50;
+            background-color: #1976d2;
             color: white;
             border: none;
             cursor: pointer;
             font-size: 18px;
-            border-radius: 5px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.2s;
         }
         button:hover {
-            background-color: #45a049;
+            background-color: #1565c0;
+            transform: scale(1.05);
         }
         .button-container {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        @media (max-width: 600px) {
+            .button-container {
+                flex-direction: column;
+                align-items: center;
+            }
         }
     </style>
 </head>
